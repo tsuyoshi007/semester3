@@ -52,11 +52,11 @@
 
 16. **Rail Fence** write message letters out diagonally over a number of rows.
 
-    ![example](C:\Users\Tsuyoshi\Documents\rail_fence.png)
+    ![example](rail_fence.png)
 
 17. **Row Transposition** write letters of message as rows but take column as ciphertext
 
-    ![row_transposition](C:\Users\Tsuyoshi\Documents\row_transposition.png)
+    ![row_transposition](row_transposition.png)
 
     ***Note:*** Both Substitution and Transposition is not secure because of language characteristics.
 
