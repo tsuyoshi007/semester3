@@ -2252,19 +2252,18 @@ public class example {
              ```
        
     10. JSTL
-        
+
         1. The JSP Standard Tag Library (JSTL) represents a set of tags to simplify the JSP development.
-        
+
         2. Why we use JSTL:
-        
+
               1. **Fast Development** JSTL provides many tags that simplify the JSP.
-        
+
            2. **Code Reusability** We can use the JSTL tags on various pages.
-        
+
            3. **No need to use scriptlet tag** It avoids the use of scriptlet tag.
-          3.Core tag
         3. The <c:out> tag is similar to JSP expression tag, but it can only  be used with expression. It will display the result of an expression,  similar to the way < %=...% > work.
-        
+
            ```jsp
            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
            <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -2280,9 +2279,9 @@ public class example {
               </body>
            </html>
            ```
-        
+
         4. The <c:import> is similar to jsp 'include', with an additional  feature of including the content of any resource either within server or outside the server.
-        
+
            ```jsp
            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
            <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -2299,40 +2298,40 @@ public class example {
               </body>
            </html>
            ```
-        
+
         5. <c:set> is used to set the result of an expression evaluated in a 'scope'.  The <c:set> tag is helpful because it evaluates the expression and use the result to set a value of java.util.Map or JavaBean.
-        
+
            ```jsp
            <c:set var="Income" scope="session" value="${4000*4}"/>  
            <c:out value="${Income}"/>  
            ```
-        
+
            output:
-        
+
            ```
            16000
            ```
-        
+
         6. c:remove is used for removing the specified variable from a particular scope.  This action is not particularly helpful, but it can be used for ensuring that a JSP can also clean up any scope resources.
-        
+
            ```jsp
            <c:set var="income" scope="session" value="${4000*4}"/>  
            <p>Before Remove Value is: <c:out value="${income}"/></p>  
            <c:remove var="income"/>  
            <p>After Remove Value is: <c:out value="${income}"/></p> 
            ```
-        
+
            output:
-        
+
            ```
            Before Remove Value is: 16000  
            After Remove Value is:  
            ```
-        
+
            
-        
+
         7. c:catch is used for Catches any Throwable exceptions that occurs in the body  and optionally exposes it. In general it is used for error handling and  to deal more easily with the problem occur in program
-        
+
            ```jsp
            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
            <html>
@@ -2351,11 +2350,11 @@ public class example {
               </body>
            </html>
            ```
-        
+
            
-        
+
         8. The < c:if > tag is used for testing the condition and it display the body content, if the expression evaluated is true.
-        
+
            ```jsp
            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
            <html>
@@ -2374,9 +2373,9 @@ public class example {
            </html>
            
            ```
-        
+
         9. The < c:choose > tag is a conditional tag that establish a context for mutually exclusive conditional operations. It works like a Java  **switch**  statement in which we choose between a numbers of alternatives. 
-        
+
            ```jsp
            <c:set var="income" scope="session" value="${4000*4}"/>  
            <p>Your income is : <c:out value="${income}"/></p>  
@@ -2392,42 +2391,42 @@ public class example {
                </c:otherwise>  
            </c:choose>  
            ```
-        
+
            ```
             Your income is : 16000  
             Income is very good.  
            ```
-        
+
         10. The < c:choose > tag is a conditional tag that establish a context for mutually exclusive conditional operations. It works like a Java switch statement in which we choose between a numbers of alternatives. 
-        
+
            ```jsp
            <c:forEach var="j" begin="1" end="3">  
               Item <c:out value="${j}"/><p>  
            </c:forEach>  
            ```
-        
+
            ```
              Item 1  
              Item 2  
              Item 3  
            ```
-        
+
         11. The < c:forTokens > tag iterates over tokens which is separated by the supplied delimeters. It is used for break a string into tokens and  iterate through each of the tokens to generate output.
-        
+
             ```jsp
             <c:forTokens items="haha-lol-jaja" delims="-" var="name">  
                <c:out value="${name}"/><p>  
             </c:forTokens> 
             ```
-        
+
             ```
             haha
             lol
             jaja
             ```
-        
+
         12. The < c:param > tag add the parameter in a containing 'import'  tag's URL. It allow the proper URL request parameter to be specified  within URL and it automatically perform any necessary URL encoding.
-        
+
             ```jsp
             <c:url value="/index1.jsp" var="completeURL"/>  
              <c:param name="id" value="1"/>  
@@ -2435,13 +2434,13 @@ public class example {
             </c:url>  
             ${completeURL}  
             ```
-        
+
             ```
             /LearningWebApp/index.jsp?id=1&user=kran 
             ```
-        
+
         13. The < c:param > tag add the parameter in a containing 'import' tag's URL. It allow the proper URL request parameter to be specified within URL and it automatically perform any necessary URL encoding.
-        
+
             ```jsp
               <c:set var="url" value="0" scope="request"/>  
               <c:if test="${url<1}">  
@@ -2451,34 +2450,712 @@ public class example {
                  <c:redirect url="http://facebook.com"/>  
               </c:if>  
             ```
-        
+
             ```
             Since the value of the variable 'url' is 0 the page gets directed to the http://google.com .
             ```
-        
+
         14. The < c:url > tag creates a URL with optional query parameter. It  is used for url encoding or url formatting. This tag automatically  performs the URL rewriting operation.
-        
+
             ```jsp
             <c:url value="/haha.jsp"/>
             ```
-        
+
             ```
             /LearningWebApp/haha.jsp
             ```
+
+        15. **SQL tag** : <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+
+            ```jsp
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>  
+            <html>  
+                <head>  
+                	<title>sql:setDataSource Tag</title>  
+                </head>  
+                <body>  
+            
+                <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  
+                     url="jdbc:mysql://localhost/test"  
+                     user="root"  password="1234"/>  
+                </body>  
+            </html>  
+            ```
+
+            ```jsp
+            update & query
+            
+            <%@ page import="java.io.*,java.util.*,java.sql.*"%>  
+            <%@ page import="javax.servlet.http.*,javax.servlet.*" %>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>  
+            <html>
+               <head>
+                  <title>sql:update Tag</title>
+               </head>
+               <body>
+                  <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  
+                     url="jdbc:mysql://localhost/test"  
+                     user="root"  password="1234"/>
+                  <sql:update dataSource="${db}" var="count">  
+                     INSERT INTO Students VALUES (154,'Nasreen', 'jaha', 25);  
+                  </sql:update>
+                  <sql:query dataSource="${db}" var="rs">  
+                     SELECT * from Students;  
+                  </sql:query>
+                  <table border="2" width="100%">
+                     <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                     </tr>
+                     <c:forEach var="table" items="${rs.rows}">
+                        <tr>
+                           <td>
+                              <c:out value="${table.id}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.First_Name}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.Last_Name}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.Age}"/>
+                           </td>
+                        </tr>
+                     </c:forEach>
+                  </table>
+               </body>
+            </html>
+            ```
+
+             
+
+            ```jsp
+            param
+            
+            <%@ page import="java.io.*,java.util.*,java.sql.*"%>  
+            <%@ page import="javax.servlet.http.*,javax.servlet.*" %>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>  
+            <html>
+               <head>
+                  <title>sql:update Tag</title>
+               </head>
+               <body>
+                  <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  
+                     url="jdbc:mysql://localhost/test"  
+                     user="root"  password="1234"/>
+                  <c:set var="StudentId" value="152"/>
+                  <sql:update dataSource="${db}" var="count">
+                     DELETE FROM Students WHERE Id = ?  
+                     <sql:param value="${StudentId}" />
+                  </sql:update>
+                  <sql:query dataSource="${db}" var="rs">  
+                     SELECT * from Students;  
+                  </sql:query>
+                  <table border="2" width="100%">
+                     <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                     </tr>
+                     <c:forEach var="table" items="${rs.rows}">
+                        <tr>
+                           <td>
+                              <c:out value="${table.id}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.First_Name}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.Last_Name}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.Age}"/>
+                           </td>
+                        </tr>
+                     </c:forEach>
+                  </table>
+               </body>
+            </html>
+            ```
+
+            ```jsp
+            dateParam
+            
+            <%@ page import="java.io.*,java.util.*,java.sql.*"%>  
+            <%@ page import="javax.servlet.http.*,javax.servlet.*" %>  
+            <%@ page import="java.util.Date,java.text.*" %>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>  
+            <html>
+               <head>
+                  <title>sql:dateParam Tag</title>
+               </head>
+               <body>
+                  <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  
+                     url="jdbc:mysql://localhost/test"  
+                     user="root"  password="1234"/>
+                  <%  
+                     Date DoB = new Date("2000/10/16");  
+                     int studentId = 151;  
+                     %>  
+                  <sql:update dataSource="${db}" var="count">
+                     UPDATE Student SET dob = ? WHERE Id = ?  
+                     <sql:dateParam value="<%=DoB%>" type="DATE" />
+                     <sql:param value="<%=studentId%>" />
+                  </sql:update>
+                  <sql:query dataSource="${db}" var="rs">  
+                     SELECT * from Student;  
+                  </sql:query>
+                  <table border="2" width="100%">
+                     <tr>
+                        <th>Emp ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>DoB</th>
+                     </tr>
+                     <c:forEach var="table" items="${rs.rows}">
+                        <tr>
+                           <td>
+                              <c:out value="${table.id}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.First_Name}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.Last_Name}"/>
+                           </td>
+                           <td>
+                              <c:out value="${table.dob}"/>
+                           </td>
+                        </tr>
+                     </c:forEach>
+                  </table>
+               </body>
+            </html>
+            ```
+
+            ```jsp
+            Transaction
+            
+            <%@ page import="java.io.*,java.util.*,java.sql.*"%>  
+            <%@ page import="javax.servlet.http.*,javax.servlet.*" %>  
+            <%@ page import="java.util.Date,java.text.*" %>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>  
+               
+            <html>  
+            <head>  
+            <title>sql:transaction Tag</title>  
+            </head>  
+            <body>  
+               
+            <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"  
+                 url="jdbc:mysql://localhost/test"  
+                 user="root"  password="1234"/>  
+              
+            <%  
+            Date DoB = new Date("2000/10/16");  
+            int studentId = 151;  
+            %>  
+               
+            <sql:transaction dataSource="${db}">  
+               <sql:update var="count">  
+                  UPDATE Student SET First_Name = 'Suraj' WHERE Id = 150  
+               </sql:update>  
+               <sql:update var="count">  
+                  UPDATE Student SET Last_Name= 'Saifi' WHERE Id = 153  
+               </sql:update>  
+               <sql:update var="count">  
+                 INSERT INTO Student   
+                 VALUES (154,'Supriya', 'Jaiswal', '1995/10/6');  
+               </sql:update>  
+            </sql:transaction>  
+               
+            <sql:query dataSource="${db}" var="rs">  
+               SELECT * from Student;  
+            </sql:query>  
+               
+            <table border="2" width="100%">  
+            <tr>  
+               <th>Emp ID</th>  
+               <th>First Name</th>  
+               <th>Last Name</th>  
+               <th>DoB</th>  
+            </tr>  
+            <c:forEach var="table" items="${rs.rows}">  
+            <tr>  
+               <td><c:out value="${table.id}"/></td>  
+               <td><c:out value="${table.First_Name}"/></td>  
+               <td><c:out value="${table.Last_Name}"/></td>  
+               <td><c:out value="${table.dob}"/></td>  
+            </tr>  
+            </c:forEach>  
+            </table>  
+               
+            </body>  
+            </html>  
+            ```
+
+        16. XML Tag
+
+            ```jsp
+            parse & out
+            <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+            <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>  
+            <html>
+               <head>
+                  <title>XML Tags</title>
+               </head>
+               <body>
+                  <h2>Vegetable Information:</h2>
+                  <c:set var="vegetable">
+                     <vegetables>
+                        <vegetable>
+                           <name>onion</name>
+                           <price>40/kg</price>
+                        </vegetable>
+                        <vegetable>
+                           <name>Potato</name>
+                           <price>30/kg</price>
+                        </vegetable>
+                        <vegetable>
+                           <name>Tomato</name>
+                           <price>90/kg</price>
+                        </vegetable>
+                     </vegetables>
+                  </c:set>
+                  <x:parse xml="${vegetable}" var="output"/>
+                  <b>Name of the vegetable is</b>:  
+                  <x:out select="$output/vegetables/vegetable[1]/name" />
+                  <br>  
+                  <b>Price of the Potato is</b>:  
+                  <x:out select="$output/vegetables/vegetable[2]/price" />
+               </body>
+            </html>
+            
+            output:
+            Vegetable Information:
+            Name of the vegetable is: onion
+            Price of the Potato is: 30/kg
+            ```
+    ```
         
-            4. Sql tag
+    ​```jsp
+            choose
+    <c:set var="xmltext">  
+            <books>  
+            <book>  
+              <name>Three mistakes of my life</name>  
+      <author>Chetan Bhagat</author>  
+              <price>200</price>  
+    </book>  
+            <book>  
+      <name>Tomorrow land</name>  
+              <author>Brad Bird</author>  
+              <price>2000</price>  
+            </book>  
+    </books>  
+            </c:set>  
+      
+            <x:parse xml="${xmltext}" var="output"/>  
+    <x:choose>  
+               <x:when select="$output//book/author = 'Chetan bhagat'">  
+                  Book is written by Chetan bhagat  
+               </x:when>  
+       <x:when select="$output//book/author = 'Brad Bird'">  
+                  Book is written by Brad Bird  
+               </x:when>  
+               <x:otherwise>  
+                  The author is unknown...  
+               </x:otherwise>  
+            </x:choose> 
+            
+            
+            Books Information:
+            
+            Book is written by Brad Bird
+            
+    ```
+
+        ```jsp
+        if
+        <c:set var="vegetables">  
+        <vegetables>  
+            <vegetable>  
+              <name>onion</name>  
+              <price>40</price>  
+            </vegetable>  
+         <vegetable>  
+              <name>Potato</name>  
+              <price>30</price>  
+            </vegetable>  
+         <vegetable>  
+              <name>Tomato</name>  
+              <price>90</price>  
+            </vegetable>  
+        </vegetables>  
+        </c:set>  
+        <x:parse xml="${vegetables}" var="output"/>  
+        <x:if select="$output/vegetables/vegetable/price < 100">  
+           Vegetables prices are very low.  
+        </x:if>
         
+        ```
+
+        ```jsp
+        transform & param
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+        <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>  
+        <html>
+           <head>
+              <title>x:transform Tag</title>
+           </head>
+           <body>
+              <h3>Novels Information:</h3>
+              <c:set var="xmltext">
+                 <books>
+                    <book>
+                       <name>Three mistakes of my life</name>
+                       <author>Chetan Bhagat</author>
+                       <price>200</price>
+                    </book>
+                    <book>
+                       <name>Tomorrow land</name>
+                       <author>Brad Bird</author>
+                       <price>1000</price>
+                    </book>
+                    <book>
+                       <name>Wings of fire</name>
+                       <author>Dr. APJ Abdul Kalam</author>
+                       <price>500</price>
+                    </book>
+                 </books>
+              </c:set>
+              <c:import url="transfer.xsl" var="xslt"/>
+              <x:transform xml="${xmltext}" xslt="${xslt}">
+                 <x:param name="bgColor" value="yellow"/>
+              </x:transform>
+           </body>
+        </html>
+        output: table with backgroud yellow following xsl to render xml
+        ```
+
+    17. Function Tag function  provides a number of standard functions, most of these functions are common string manipulation functions. 
+
+        ```jsp
+        boolean contains(java.lang.String, java.lang.String)
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+        <html>
+           <head>
+              <title>Using JSTL Functions</title>
+           </head>
+           <body>
+              <c:set var="String" value="Welcome to javatpoint"/>
+              <c:if test="${fn:contains(String, 'javatpoint')}">
+                 <p>Found javatpoint string
+                 <p>
+              </c:if>
+              <c:if test="${fn:contains(String, 'JAVATPOINT')}">  
+              <p>Found JAVATPOINT string<p>  
+              </c:if>  
+           </body>
+        </html>
+        output: 
+        Found javatpoint string  
+        ```
+
+        ```jsp
+        containsIgnoreCase
+        <c:set var="String" value="Welcome to javatpoint"/>  
+          
+        <c:if test="${fn:containsIgnoreCase(String, 'javatpoint')}">  
+           <p>Found javatpoint string<p>  
+        </c:if>  
+          
+        <c:if test="${fn:containsIgnoreCase(String, 'JAVATPOINT')}">  
+           <p>Found JAVATPOINT string<p>  
+        </c:if>
+        output:
+        Found javatpoint string
+        Found JAVATPOINT string
+        ```
+
+        ```jsp
+        java.lang.String escapeXml(java.lang.String)  
+        <c:set var="String" value="Welcome to JSP programming"/>  
+          
+        <c:if test="${fn:endsWith(String, 'programming')}">  
+           <p>String ends with programming<p>  
+        </c:if>  
+          
+        <c:if test="${fn:endsWith(String, 'JSP')}">  
+           <p>String ends with JSP<p>  
+        </c:if>  
+        ```
+
+        ```jsp
+        <c:set var="string1" value="It is first String."/>  
+        <c:set var="string2" value="It is <xyz>second String.</xyz>"/>  
+          
+        <p>With escapeXml() Function:</p>  
+        <p>string-1 : ${fn:escapeXml(string1)}</p>  
+        <p>string-2 : ${fn:escapeXml(string2)}</p>  
+          
+        <p>Without escapeXml() Function:</p>  
+        <p>string-1 : ${string1}</p>  
+        <p>string-2 : ${string2}</p>  
+        
+        output
+        With escapeXml() Function:  
+        string-1 : It is first String.  
+        string-2 : It is <xyz>second String.</xyz>  
+        Without escapeXml() Function:  
+        string-1 : It is first String.  
+        string-2 : It is second String.  
+        ```
+
+        ```jsp
+        indexOf
+        <c:set var="string1" value="It is first String."/>  
+        <c:set var="string2" value="It is <xyz>second String.</xyz>"/>  
+          
+        <p>Index-1 : ${fn:indexOf(string1, "first")}</p>  
+        <p>Index-2 : ${fn:indexOf(string2, "second")}</p>  
+        
+        output:
+        Index-1 : 6  
+        Index-2 : 11  
+        ```
+
+        ```jsp
+        trim & length
+        <c:set var="str1" value="Welcome to JSP        programming         "/>  
+        <p>String-1 Length is : ${fn:length(str1)}</p>  
+          
+        <c:set var="str2" value="${fn:trim(str1)}" />  
+        <p>String-2 Length is : ${fn:length(str2)}</p>  
+        <p>Final value of string is : ${str2}</p>  
+        output
+        String-1 Length is : 42  
+        String-2 Length is : 33  
+        Final value of string is : Welcome to JSP programming  
+        ```
+
+        ```jsp
+        startsWith
+        <c:set var="msg" value="The Example of JSTL fn:startsWith() Function"/>  
+        The string starts with "The": ${fn:startsWith(msg, 'The')}  
+        <br>The string starts with "Example": ${fn:startsWith(msg, 'Example')}  
+        output
+        The string starts with "The": true  
+        The string starts with "Example": false
+        ```
+
+        ```jsp
+        split & join
+        <c:set var="str1" value="Welcome-to-JSP-Programming."/>  
+        <c:set var="str2" value="${fn:split(str1, '-')}" />  
+        <c:set var="str3" value="${fn:join(str2, ' ')}" />  
+          
+        <p>String-3 : ${str3}</p>  
+        <c:set var="str4" value="${fn:split(str3, ' ')}" />  
+        <c:set var="str5" value="${fn:join(str4, '-')}" />  
+          
+        <p>String-5 : ${str5}</p>  
+        ```
+
+        + quite simple no need  toLowerCase toUpperCase
+
+        ```jsp
+        replace
+        <c:set var="author" value="Ramesh Kumar"/>  
+        <c:set var="string" value="pqr xyz abc PQR"/>  
+        ${fn:replace(author, "Ramesh", "Suresh")}  
+        ${fn:replace(string, "pqr", "hello")}  
+        output:
+        Suresh Kumar hello xyz abc PQR  
+        ```
+
+        ```jsp
+        substring
+        <c:set var="string" value="This is the first string."/>  
+        ${fn:substring(string, 5, 17)} 
+        output:
+        is the first
+        ```
+
+        ```jsp
+        substringBefore
+        <c:set var="string" value="Hi, This is JAVATPOINT.COM developed by SONOO JAISWAL."/>  
+        ${fn:substringBefore(string, "developed")}  
+        output:
+        Hi, This is JAVATPOINT.COM  
+        ```
+
+        ```jsp
+        substringAfter
+        <c:set var="string" value="Nakul Jain"/>  
+        ${fn:substringAfter(string, "Nakul")}  
+        output:
+        Jain
+        ```
+
+
+    ​        
+    ​    
+    18. Format Tag provide support for message formatting, number and date formatting etc. The url for the formatting tags is  **http://java.sun.com/jsp/jstl/fmt**  and prefix is  **fmt.**
+
+        ref: https://www.javatpoint.com/jstl-formatting-tags
+
+        
+
+        **Internationalization**
+
+        1. Using Java
+
+        ```java
+        package com.javatpoint;
+        import java.util.ListResourceBundle;  
+        public class Simple extends ListResourceBundle {  
+            public Object[][] getContents() {  
+                return contents;  
+            }
+            static final Object[][] contents = { { "colour.Violet", "Violet" },  
+                    { "colour.Indigo", "Indigo" }, { "colour.Blue", "Blue" }, };  
+        } 
+        ```
+
+        ```jsp
+            <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+            <html>
+                <head>
+                	<title>fmt:bundle Tag</title>
+                </head>
+                <body>
+                    <fmt:bundle basename="com.javatpoint.Simple" prefix="colour.">
+                        <fmt:message key="Violet"/><br/>
+                        <fmt:message key="Indigo"/><br/>
+                        <fmt:message key="Blue"/><br/>
+                    </fmt:bundle>
+                </body>
+            </html>
+        ```
+
+        ```
+            Violet  
+            Indigo  
+            Blue  
+        ```
+
+        2. Using properties file
+
+           messages.properties
+
+        ```properties
+        label.welcome = Welcome
+        ```
+
+        ​       messages_fr.properties
+
+        ```
+        label.welcome = Bienvenue
+        ```
+
+        ```jsp
+        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+        <%@ page isELIgnored="false" %>
+         
+        <fmt:setLocale value="${param.lang}"/>
+                <fmt:setBundle basename="resources.messages"/>
+         
+        <html>
+        <head>
+            <title>PhraseApp - i18n</title>
+        </head>
+        <body>
+            <h2>
+                <fmt:message key="label.welcome" />
+            </h2>
+        </body>
+        </html>
+        
+        url : blah.com/?lang=en
+        output : Welcome
+        
+        url : blah.com/?lang=fr
+        output : Bienvenue
+        ```
+
+    19. Custom Tag
+
+        1. **Eliminates the need of scriptlet tag** The custom tags eliminates the need of scriptlet tag which is considered bad programming approach in JSP.
+        2. **Separation of business logic from JSP**  The custom tags separate the the business logic from the JSP page so that it may be easy to maintain.
+        3. **Re-usability** The custom tags makes the possibility to reuse the same business logic again and again.
+        4. Example
         
         ```jsp
+        <?xml version="1.0" encoding="UTF-8"?>
+        <taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+          <tlib-version>1.0</tlib-version>
+          <short-name>mytag</short-name>
+          <uri>/WEB-INF/tlds/mytag</uri>
+          <tag>
+              <name>today</name>
+              <tag-class>customTag.mytag</tag-class>
+          </tag>
+        </taglib>
+        ```
         
+        ```java
+        package customTag;
+        import java.util.Calendar;  
+        import javax.servlet.jsp.JspException;  
+        import javax.servlet.jsp.JspWriter;  
+        import javax.servlet.jsp.tagext.TagSupport;  
+        public class mytag extends TagSupport{  
+          
+            public int doStartTag() throws JspException {  
+                JspWriter out=pageContext.getOut();//returns the instance of JspWriter  
+                try{  
+                 out.print(Calendar.getInstance().getTime());//printing date and time using JspWriter  
+                }catch(Exception e){System.out.println(e);}  
+                return SKIP_BODY;//will not evaluate the body content of the tag  
+            }  
+        }  
+        ```
+        
+        ```jsp
+        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+        <%@ taglib uri="/WEB-INF/tlds/mytag" prefix="m" %>  
+        
+        
+        <html>
+            <head>
+                
+            </head>
+            <body>
+                Current Date and Time is: <m:today/> 
+            </body>
+        </html>
+        ```
+        
+        ```
+        output: 
+         Current Date and Time is: Sat Apr 18 21:02:54 ICT 2020
         ```
         
         
-            5. Xml tag
-        
-            6. Function tag
-            
-            7. Format tag
-            
-            8. Custom tag
-    
+
+
+    ​        
+
