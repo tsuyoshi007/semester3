@@ -1984,7 +1984,7 @@ public class example {
        		String attributeName = event.getName();
        		Object attributeValue = event.getValue();
        		System.out.println("Attribute replaced : " + attributeName + " : " + attributeValue);	
-       	}
+       	} 
        }
        ```
 
@@ -2008,4 +2008,477 @@ public class example {
         }
     }
     ```
+    
+48. JSP 
 
+    1. JSP introduction
+
+       1. allow us to create web application easily by inserting java code in html pages using jsp tags that most of its start with <% and end with %>
+
+    2. Life cycle
+
+       **Translation of JSP page to Servlet :**
+
+        This is the first step of JSP life cycle. This translation phase deals  with Syntactic correctness of JSP. Here test.jsp file is transllated to  test.java.
+
+        **Compilation of JSP page :**
+
+        Here the generated java servlet file (test.java) is compiled to a class file (test.class).
+
+        **Classloading :**
+
+        Servlet class which has been loaded from JSP source is now loaded into container.
+
+        **Instantiation :**
+
+        Here instance of the class is generated. The container manages one or more instance by providing response to requests.
+
+        **Initialization :**
+
+        jspInit() method is called only once during the life cycle immediately after the  generation of Servlet instance from JSP.
+
+        **Request processing :**
+
+        _jspService() method is used to serve the raised requests by JSP.It  takes request and response object as parameters.This method cannot be  overridden.
+
+        **JSP Cleanup :**
+
+        In order to remove the JSP from use by the container or to destroy  method for servlets jspDestroy()method is used. This method is called  once, if you need to perform any cleanup task like closing open files,  releasing database connections jspDestroy() can be overridden.
+
+       
+
+       Ref: https://www.geeksforgeeks.org/life-cycle-of-jsp/
+
+       ![](/home/tsuyoshi/Github/semester3/WebApp/jsplifecycle.png)
+
+    4. **Scriptlet tag** can contain any number of JAVA language statements, variable or method declarations, or expressions that are valid in the page  scripting language.
+
+       ```jsp
+       <html>
+          <head><title>Hello World</title></head>
+          
+          <body>
+             Hello World!<br/>
+             <%
+                out.println("Your IP address is " + request.getRemoteAddr());
+             %>
+          </body>
+       </html>
+       ```
+
+    5. **Declaration tag** declares one or more variables or methods that you can use in Java code later in the JSP file. You must declare the variable or  method before you use it in the JSP file.
+
+       ```jsp
+       <%! int i = 0; %> 
+       <%! int a, b, c; %> 
+       <%! Circle a = new Circle(2.0); %> 
+       ```
+
+    6. **Expression tag** element contains a scripting language expression that  is evaluated, converted to a String, and inserted where the expression  appears in the JSP file.
+
+       ```jsp
+       <html> 
+          <head><title>A Comment Test</title></head> 
+          
+          <body>
+             <p>Today's date: <%= (new java.util.Date()).toLocaleString()%></p>
+          </body> 
+       </html> 
+       ```
+
+    6. **Comment tag** marks text or statements that the JSP container should  ignore. A JSP comment is useful when you want to hide or "comment out", a part of your JSP page.
+
+    7. **JSP implicit object** are the Java objects that the JSP Container makes  available to the developers in each page and the developer can call them directly without being explicitly declared.
+
+       1. request : HttpServletRequest
+       2. response : HttpServletResponse
+       3. out : PrintWriter
+       4. session : HttpSession
+       5. application : ServletContext
+       6. config : ServletConfig
+       7. pageContext  : JspWriters
+       8. page : this
+       9. exception : Exception
+
+       Ref : https://www.tutorialspoint.com/jsp/jsp_implicit_objects.htm
+
+    8. JSP directive
+
+       1. The **page** directive is used to provide instructions to the  container. These instructions pertain to the current JSP page. You may  code page directives anywhere in your JSP page. By convention, page  directives are coded at the top of the JSP page
+
+          ![](/home/tsuyoshi/Github/semester3/WebApp/pageattribute.png)
+
+       2. The **include** directive is used to include a file during the  translation phase. This directive tells the container to merge the  content of other external files with the current JSP during the  translation phase. You may code the ***include\*** directives anywhere in your JSP page.
+
+          1. The filename in the include directive is actually a relative URL. If you just specify a filename with no associated path, the JSP compiler  assumes that the file is in the same directory as your JSP.
+
+             ```jsp
+             <jsp:directive.include file = "relative url" />
+             ```
+
+       3. The **taglib** directive declares that your JSP page uses a set of  custom tags, identifies the location of the library, and provides means  for identifying the custom tags in your JSP page.
+
+          ```jsp
+          <%@ taglib uri="uri" prefix = "prefixOfTag" >
+          ```
+
+    9. JSP Action Tag:
+
+       1. jsp:forward forward the request and response to another servlet or jsp page and let that servlet or page response
+
+          1. index.jsp
+
+             ```jsp
+             <html>
+                <body>
+                   <h1>I’m index</h1>
+                   <jsp:forward page=”printname.jsp”/>
+                </body>
+             </html>
+             ```
+
+          2. printname.jsp
+
+             ```jsp
+             <html>
+                <body>
+                   <h1>I’m printname</h1>
+                   <% out.print("My name is Hun Vikran”); %> 
+                </body>
+             </html>
+             ```
+
+          3. Output:
+
+             ```
+             I’m print name
+             My name is Hun Vikran
+             ```
+
+             
+
+       2. jsp:include pass the request and response to another servlet or jsp page after doing some logic that page or servlet will pass back the request and response.
+
+          1. index.jsp
+
+             ```jsp
+             <html>
+                <body>
+                   <h1>I’m index</h1>
+                   <jsp:include page=”printname.jsp”/>
+                </body>
+             </html>
+             ```
+
+             
+
+          2. printname.jsp
+
+             ```jsp
+             <html>
+                <body>
+                   <h1>I’m printname</h1>
+                   <% out.print("My name is Hun Vikran”); %> 
+                </body>
+             </html>
+             ```
+
+             Output: 
+
+             ```
+             I’m index
+             I’m printname
+             My name is Hun Vikran
+             ```
+
+       3. jsp:useBean
+
+          1. Java Bean is a java class it should have a no-arg constructor, it should be Serializable, it should provide methods to set and get the values of the properties, known as getter and setter methods.They are used to  encapsulate many objects into a single object (the bean), so that they  can be passed around as a single bean object instead of as multiple  individual objects.
+
+          2. index.jsp
+
+             ```jsp
+             <%-- 
+                 Document   : index
+                 Created on : Apr 16, 2020, 9:47:17 PM
+                 Author     : tsuyoshi
+             --%>
+             
+             <%@page contentType="text/html" pageEncoding="UTF-8"%>
+             <!DOCTYPE html>
+             <html>
+                <head>
+                   <title>Using JavaBeans in JSP</title>
+                </head>
+                <body>
+                   <center>
+                      <h2>Using JavaBeans in JSP</h2>
+                      <jsp:useBean id = "test" class = "mybeans.Bean" />
+                      <jsp:setProperty name = "test" property = "msg" value = "Hello JSP..." />
+                      <p>Got message....</p>
+                      <jsp:getProperty name = "test" property = "msg" />
+                   </center>
+                </body>
+             </html>
+             
+             ```
+
+          3. mybeans.Bean
+
+             ```java
+             package mybeans;
+             
+             /*
+              * To change this license header, choose License Headers in Project Properties.
+              * To change this template file, choose Tools | Templates
+              * and open the template in the editor.
+              */
+             
+             /**
+              *
+              * @author tsuyoshi
+              */
+             public class Bean {
+                 private String msg="ahah";
+             
+                 public String getMsg() {
+                     return msg;
+                 }
+             
+                 public void setMsg(String msg) {
+                     this.msg = msg;
+                 }
+             }
+             ```
+       
+    10. JSTL
+        
+        1. The JSP Standard Tag Library (JSTL) represents a set of tags to simplify the JSP development.
+        
+        2. Why we use JSTL:
+        
+              1. **Fast Development** JSTL provides many tags that simplify the JSP.
+        
+           2. **Code Reusability** We can use the JSTL tags on various pages.
+        
+           3. **No need to use scriptlet tag** It avoids the use of scriptlet tag.
+          3.Core tag
+        3. The <c:out> tag is similar to JSP expression tag, but it can only  be used with expression. It will display the result of an expression,  similar to the way < %=...% > work.
+        
+           ```jsp
+           <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+           <%@page contentType="text/html" pageEncoding="UTF-8"%>
+           <!DOCTYPE html>
+           <html>
+              <head>
+                 <title>Using JavaBeans in JSP</title>
+              </head>
+              <body>
+                 <center>
+            <c:out value="i'm vikran"/>  
+                 </center>
+              </body>
+           </html>
+           ```
+        
+        4. The <c:import> is similar to jsp 'include', with an additional  feature of including the content of any resource either within server or outside the server.
+        
+           ```jsp
+           <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+           <%@page contentType="text/html" pageEncoding="UTF-8"%>
+           <!DOCTYPE html>
+           <html>
+              <head>
+                 <title>Using JavaBeans in JSP</title>
+              </head>
+              <body>
+                 <center>
+           <c:import var="data" url="http://www.google.com"/>  
+           <c:out value="${data}"/> 
+                 </center>
+              </body>
+           </html>
+           ```
+        
+        5. <c:set> is used to set the result of an expression evaluated in a 'scope'.  The <c:set> tag is helpful because it evaluates the expression and use the result to set a value of java.util.Map or JavaBean.
+        
+           ```jsp
+           <c:set var="Income" scope="session" value="${4000*4}"/>  
+           <c:out value="${Income}"/>  
+           ```
+        
+           output:
+        
+           ```
+           16000
+           ```
+        
+        6. c:remove is used for removing the specified variable from a particular scope.  This action is not particularly helpful, but it can be used for ensuring that a JSP can also clean up any scope resources.
+        
+           ```jsp
+           <c:set var="income" scope="session" value="${4000*4}"/>  
+           <p>Before Remove Value is: <c:out value="${income}"/></p>  
+           <c:remove var="income"/>  
+           <p>After Remove Value is: <c:out value="${income}"/></p> 
+           ```
+        
+           output:
+        
+           ```
+           Before Remove Value is: 16000  
+           After Remove Value is:  
+           ```
+        
+           
+        
+        7. c:catch is used for Catches any Throwable exceptions that occurs in the body  and optionally exposes it. In general it is used for error handling and  to deal more easily with the problem occur in program
+        
+           ```jsp
+           <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+           <html>
+              <head>
+                 <title>Core Tag Example</title>
+              </head>
+              <body>
+                 <c:catch var ="catchtheException">  
+                    <% int x = 2/0;%>  
+                 </c:catch>
+                 <c:if test = "${catchtheException != null}">
+                    <p>The type of exception is : ${catchtheException} <br />  
+                       There is an exception: ${catchtheException.message}
+                    </p>
+                 </c:if>
+              </body>
+           </html>
+           ```
+        
+           
+        
+        8. The < c:if > tag is used for testing the condition and it display the body content, if the expression evaluated is true.
+        
+           ```jsp
+           <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+           <html>
+              <head>
+                 <title>Core Tag Example</title>
+              </head>
+              <body>
+                 <c:set var="income" scope="session" value="${4000*4}"/>
+                 <c:if test="${income > 8000}">
+                    <p>
+                       My income is: 
+                       <c:out value="${income}"/>
+                    <p>  
+                 </c:if>
+              </body>
+           </html>
+           
+           ```
+        
+        9. The < c:choose > tag is a conditional tag that establish a context for mutually exclusive conditional operations. It works like a Java  **switch**  statement in which we choose between a numbers of alternatives. 
+        
+           ```jsp
+           <c:set var="income" scope="session" value="${4000*4}"/>  
+           <p>Your income is : <c:out value="${income}"/></p>  
+           <c:choose>  
+               <c:when test="${income <= 1000}">  
+                  Income is not good.  
+               </c:when>  
+               <c:when test="${income > 10000}">  
+                   Income is very good.  
+               </c:when>  
+               <c:otherwise>  
+                  Income is undetermined...  
+               </c:otherwise>  
+           </c:choose>  
+           ```
+        
+           ```
+            Your income is : 16000  
+            Income is very good.  
+           ```
+        
+        10. The < c:choose > tag is a conditional tag that establish a context for mutually exclusive conditional operations. It works like a Java switch statement in which we choose between a numbers of alternatives. 
+        
+           ```jsp
+           <c:forEach var="j" begin="1" end="3">  
+              Item <c:out value="${j}"/><p>  
+           </c:forEach>  
+           ```
+        
+           ```
+             Item 1  
+             Item 2  
+             Item 3  
+           ```
+        
+        11. The < c:forTokens > tag iterates over tokens which is separated by the supplied delimeters. It is used for break a string into tokens and  iterate through each of the tokens to generate output.
+        
+            ```jsp
+            <c:forTokens items="haha-lol-jaja" delims="-" var="name">  
+               <c:out value="${name}"/><p>  
+            </c:forTokens> 
+            ```
+        
+            ```
+            haha
+            lol
+            jaja
+            ```
+        
+        12. The < c:param > tag add the parameter in a containing 'import'  tag's URL. It allow the proper URL request parameter to be specified  within URL and it automatically perform any necessary URL encoding.
+        
+            ```jsp
+            <c:url value="/index1.jsp" var="completeURL"/>  
+             <c:param name="id" value="1"/>  
+             <c:param name="user" value="kran"/>  
+            </c:url>  
+            ${completeURL}  
+            ```
+        
+            ```
+            /LearningWebApp/index.jsp?id=1&user=kran 
+            ```
+        
+        13. The < c:param > tag add the parameter in a containing 'import' tag's URL. It allow the proper URL request parameter to be specified within URL and it automatically perform any necessary URL encoding.
+        
+            ```jsp
+              <c:set var="url" value="0" scope="request"/>  
+              <c:if test="${url<1}">  
+                 <c:redirect url="http://google.com"/>  
+              </c:if>  
+              <c:if test="${url>1}">  
+                 <c:redirect url="http://facebook.com"/>  
+              </c:if>  
+            ```
+        
+            ```
+            Since the value of the variable 'url' is 0 the page gets directed to the http://google.com .
+            ```
+        
+        14. The < c:url > tag creates a URL with optional query parameter. It  is used for url encoding or url formatting. This tag automatically  performs the URL rewriting operation.
+        
+            ```jsp
+            <c:url value="/haha.jsp"/>
+            ```
+        
+            ```
+            /LearningWebApp/haha.jsp
+            ```
+        
+            4. Sql tag
+        
+        
+        ```jsp
+        
+        ```
+        
+        
+            5. Xml tag
+        
+            6. Function tag
+            
+            7. Format tag
+            
+            8. Custom tag
+    
