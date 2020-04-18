@@ -2808,7 +2808,7 @@ public class example {
         </x:if>
         
         ```
-
+    
         ```jsp
         transform & param
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
@@ -3009,153 +3009,143 @@ public class example {
         ```
 
 
-    ​        
-    ​    
-    18. Format Tag provide support for message formatting, number and date formatting etc. The url for the formatting tags is  **http://java.sun.com/jsp/jstl/fmt**  and prefix is  **fmt.**
+​    
+18. Format Tag provide support for message formatting, number and date formatting etc. The url for the formatting tags is  **http://java.sun.com/jsp/jstl/fmt**  and prefix is  **fmt.**
 
-        ref: https://www.javatpoint.com/jstl-formatting-tags
+    ref: https://www.javatpoint.com/jstl-formatting-tags        
 
-        
+​    **Internationalization**
 
-        **Internationalization**
+    1. Using Java
 
-        1. Using Java
+    ```java
+    package com.javatpoint;
+    import java.util.ListResourceBundle;  
+    public class Simple extends ListResourceBundle {  
+        public Object[][] getContents() {  
+            return contents;  
+        }
+        static final Object[][] contents = { { "colour.Violet", "Violet" },  
+                { "colour.Indigo", "Indigo" }, { "colour.Blue", "Blue" }, };  
+    } 
+    ```
 
-        ```java
-        package com.javatpoint;
-        import java.util.ListResourceBundle;  
-        public class Simple extends ListResourceBundle {  
-            public Object[][] getContents() {  
-                return contents;  
-            }
-            static final Object[][] contents = { { "colour.Violet", "Violet" },  
-                    { "colour.Indigo", "Indigo" }, { "colour.Blue", "Blue" }, };  
-        } 
-        ```
-
-        ```jsp
-            <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-            <html>
-                <head>
-                	<title>fmt:bundle Tag</title>
-                </head>
-                <body>
-                    <fmt:bundle basename="com.javatpoint.Simple" prefix="colour.">
-                        <fmt:message key="Violet"/><br/>
-                        <fmt:message key="Indigo"/><br/>
-                        <fmt:message key="Blue"/><br/>
-                    </fmt:bundle>
-                </body>
-            </html>
-        ```
-
-        ```
-            Violet  
-            Indigo  
-            Blue  
-        ```
-
-        2. Using properties file
-
-           messages.properties
-
-        ```properties
-        label.welcome = Welcome
-        ```
-
-        ​       messages_fr.properties
-
-        ```
-        label.welcome = Bienvenue
-        ```
-
-        ```jsp
-        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-        <%@ page isELIgnored="false" %>
-         
-        <fmt:setLocale value="${param.lang}"/>
-                <fmt:setBundle basename="resources.messages"/>
-         
-        <html>
-        <head>
-            <title>PhraseApp - i18n</title>
-        </head>
-        <body>
-            <h2>
-                <fmt:message key="label.welcome" />
-            </h2>
-        </body>
-        </html>
-        
-        url : blah.com/?lang=en
-        output : Welcome
-        
-        url : blah.com/?lang=fr
-        output : Bienvenue
-        ```
-
-    19. Custom Tag
-
-        1. **Eliminates the need of scriptlet tag** The custom tags eliminates the need of scriptlet tag which is considered bad programming approach in JSP.
-        2. **Separation of business logic from JSP**  The custom tags separate the the business logic from the JSP page so that it may be easy to maintain.
-        3. **Re-usability** The custom tags makes the possibility to reuse the same business logic again and again.
-        4. Example
-        
-        ```jsp
-        <?xml version="1.0" encoding="UTF-8"?>
-        <taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
-          <tlib-version>1.0</tlib-version>
-          <short-name>mytag</short-name>
-          <uri>/WEB-INF/tlds/mytag</uri>
-          <tag>
-              <name>today</name>
-              <tag-class>customTag.mytag</tag-class>
-          </tag>
-        </taglib>
-        ```
-        
-        ```java
-        package customTag;
-        import java.util.Calendar;  
-        import javax.servlet.jsp.JspException;  
-        import javax.servlet.jsp.JspWriter;  
-        import javax.servlet.jsp.tagext.TagSupport;  
-        public class mytag extends TagSupport{  
-          
-            public int doStartTag() throws JspException {  
-                JspWriter out=pageContext.getOut();//returns the instance of JspWriter  
-                try{  
-                 out.print(Calendar.getInstance().getTime());//printing date and time using JspWriter  
-                }catch(Exception e){System.out.println(e);}  
-                return SKIP_BODY;//will not evaluate the body content of the tag  
-            }  
-        }  
-        ```
-        
-        ```jsp
-        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-        <%@ taglib uri="/WEB-INF/tlds/mytag" prefix="m" %>  
-        
-        
+    ```jsp
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <html>
             <head>
-                
+            	<title>fmt:bundle Tag</title>
             </head>
             <body>
-                Current Date and Time is: <m:today/> 
+                <fmt:bundle basename="com.javatpoint.Simple" prefix="colour.">
+                    <fmt:message key="Violet"/><br/>
+                    <fmt:message key="Indigo"/><br/>
+                    <fmt:message key="Blue"/><br/>
+                </fmt:bundle>
             </body>
         </html>
-        ```
-        
-        ```
-        output: 
-         Current Date and Time is: Sat Apr 18 21:02:54 ICT 2020
-        ```
-        
-        
+    ```
 
+    ```
+        Violet  
+        Indigo  
+        Blue  
+    ```
 
-    ​        
+    2. Using properties file
 
+       messages.properties
+
+    ```properties
+    label.welcome = Welcome
+    ```
+
+​    ​       messages_fr.properties
+
+    ```
+    label.welcome = Bienvenue
+    ```
+
+    ```jsp
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ page isELIgnored="false" %>
+     
+    <fmt:setLocale value="${param.lang}"/>
+            <fmt:setBundle basename="resources.messages"/>
+     
+    <html>
+    <head>
+        <title>PhraseApp - i18n</title>
+    </head>
+    <body>
+        <h2>
+            <fmt:message key="label.welcome" />
+        </h2>
+    </body>
+    </html>
+    
+    url : blah.com/?lang=en
+    output : Welcome
+    
+    url : blah.com/?lang=fr
+    output : Bienvenue
+    ```
+
+19. Custom Tag
+
+    1. **Eliminates the need of scriptlet tag** The custom tags eliminates the need of scriptlet tag which is considered bad programming approach in JSP.
+    2. **Separation of business logic from JSP**  The custom tags separate the the business logic from the JSP page so that it may be easy to maintain.
+    3. **Re-usability** The custom tags makes the possibility to reuse the same business logic again and again.
+    4. Example
+    
+    ```jsp
+    <?xml version="1.0" encoding="UTF-8"?>
+    <taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+      <tlib-version>1.0</tlib-version>
+      <short-name>mytag</short-name>
+      <uri>/WEB-INF/tlds/mytag</uri>
+      <tag>
+          <name>today</name>
+          <tag-class>customTag.mytag</tag-class>
+      </tag>
+    </taglib>
+    ```
+    
+    ```java
+    package customTag;
+    import java.util.Calendar;  
+    import javax.servlet.jsp.JspException;  
+    import javax.servlet.jsp.JspWriter;  
+    import javax.servlet.jsp.tagext.TagSupport;  
+    public class mytag extends TagSupport{  
+      
+        public int doStartTag() throws JspException {  
+            JspWriter out=pageContext.getOut();//returns the instance of JspWriter  
+            try{  
+             out.print(Calendar.getInstance().getTime());//printing date and time using JspWriter  
+            }catch(Exception e){System.out.println(e);}  
+            return SKIP_BODY;//will not evaluate the body content of the tag  
+        }  
+    }  
+    ```
+    
+    ```jsp
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <%@ taglib uri="/WEB-INF/tlds/mytag" prefix="m" %>  
+    <html>
+        <head>
+    
+        </head>
+        <body>
+            Current Date and Time is: <m:today/> 
+        </body>
+    </html>
+    ​```
+    
+    ​```
+    output: 
+    Current Date and Time is: Sat Apr 18 21:02:54 ICT 2020
+    ​```
+    ```
