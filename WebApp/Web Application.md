@@ -2808,7 +2808,7 @@ public class example {
         </x:if>
         
         ```
-    
+        
         ```jsp
         transform & param
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
@@ -3016,82 +3016,82 @@ public class example {
 
 ​    **Internationalization**
 
-    1. Using Java
+1. Using Java (can ignore since he didn't teach)
 
-    ```java
-    package com.javatpoint;
-    import java.util.ListResourceBundle;  
-    public class Simple extends ListResourceBundle {  
-        public Object[][] getContents() {  
-            return contents;  
-        }
-        static final Object[][] contents = { { "colour.Violet", "Violet" },  
-                { "colour.Indigo", "Indigo" }, { "colour.Blue", "Blue" }, };  
-    } 
-    ```
+```java
+package com.javatpoint;
+import java.util.ListResourceBundle;  
+public class Simple extends ListResourceBundle {  
+    public Object[][] getContents() {  
+        return contents;  
+    }
+    static final Object[][] contents = { { "colour.Violet", "Violet" },  
+            { "colour.Indigo", "Indigo" }, { "colour.Blue", "Blue" }, };  
+} 
+```
 
-    ```jsp
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-        <html>
-            <head>
-            	<title>fmt:bundle Tag</title>
-            </head>
-            <body>
-                <fmt:bundle basename="com.javatpoint.Simple" prefix="colour.">
-                    <fmt:message key="Violet"/><br/>
-                    <fmt:message key="Indigo"/><br/>
-                    <fmt:message key="Blue"/><br/>
-                </fmt:bundle>
-            </body>
-        </html>
-    ```
+```jsp
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <html>
+        <head>
+        	<title>fmt:bundle Tag</title>
+        </head>
+        <body>
+            <fmt:bundle basename="com.javatpoint.Simple" prefix="colour.">
+                <fmt:message key="Violet"/><br/>
+                <fmt:message key="Indigo"/><br/>
+                <fmt:message key="Blue"/><br/>
+            </fmt:bundle>
+        </body>
+    </html>
+```
 
-    ```
-        Violet  
-        Indigo  
-        Blue  
-    ```
+```
+    Violet  
+    Indigo  
+    Blue  
+```
 
-    2. Using properties file
+2. Using properties file
 
-       messages.properties
+   messages.properties
 
-    ```properties
-    label.welcome = Welcome
-    ```
+```properties
+label.welcome = Welcome
+```
 
 ​    ​       messages_fr.properties
 
-    ```
-    label.welcome = Bienvenue
-    ```
+```
+label.welcome = Bienvenue
+```
 
-    ```jsp
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    <%@ page isELIgnored="false" %>
-     
-    <fmt:setLocale value="${param.lang}"/>
-            <fmt:setBundle basename="resources.messages"/>
-     
-    <html>
-    <head>
-        <title>PhraseApp - i18n</title>
-    </head>
-    <body>
-        <h2>
-            <fmt:message key="label.welcome" />
-        </h2>
-    </body>
-    </html>
-    
-    url : blah.com/?lang=en
-    output : Welcome
-    
-    url : blah.com/?lang=fr
-    output : Bienvenue
-    ```
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
+ 
+<fmt:setLocale value="${param.lang}"/>
+        <fmt:setBundle basename="resources.messages"/>
+ 
+<html>
+<head>
+    <title>PhraseApp - i18n</title>
+</head>
+<body>
+    <h2>
+        <fmt:message key="label.welcome" />
+    </h2>
+</body>
+</html>
+
+url : blah.com/?lang=en
+output : Welcome
+
+url : blah.com/?lang=fr
+output : Bienvenue
+```
 
 19. Custom Tag
 
